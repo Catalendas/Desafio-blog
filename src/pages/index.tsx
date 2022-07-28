@@ -52,8 +52,8 @@ export default function Home({postsPagination}: HomeProps): ReactElement {
    
   }))
 
+  
   const [posts, setPosts] = useState<Post[]>(formatedPost)
-
   return(
     <>
      <Head>
