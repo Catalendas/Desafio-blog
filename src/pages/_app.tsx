@@ -8,7 +8,6 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <>
           <Header/>
           <Component {...pageProps} />
-
       </>
     )
     

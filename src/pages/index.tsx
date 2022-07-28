@@ -65,20 +65,18 @@ export default function Home({postsPagination}: HomeProps): ReactElement {
         
         <div className={styles.postList}>
           
-           {posts.map(post => (
-             <Link href={`/post/${post.uid}`} key={post.uid}>   
-             <a>
-               <strong>{post.data.title}</strong>
-               <p>{post.data.subtitle}</p>
-               <ul>
-                 <li><FiCalendar/>{post.first_publication_date}</li>
-                 <li><FiUser/>{post.data.author}</li>
-               </ul>
-             </a>                     
-           </Link>
-           ))}
-
-           
+        {posts.map(post => (
+              <Link href={`/post/${post.uid}`} key={post.uid}>   
+              <a>
+                <strong>{post.data.title}</strong>
+                <p>{post.data.subtitle}</p>
+                <ul>
+                  <li><FiCalendar/>{post.first_publication_date}</li>
+                  <li><FiUser/>{post.data.author}</li>
+                </ul>
+              </a>                     
+            </Link>
+        ))}
 
           <button type='button'>Carregar mais posts</button>
         </div>
@@ -105,7 +103,7 @@ export default function Home({postsPagination}: HomeProps): ReactElement {
       first_publication_date: post.first_publication_date,
       data: {
         title: post.data.title,
-        substitle: post.data.subtitle,
+        subtitle: post.data.subtitle,
         author:post.data.author
       }
     }
