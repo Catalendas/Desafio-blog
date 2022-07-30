@@ -52,5 +52,10 @@
         font-size: 1.125rem;
         color: var(--pink-100);
         margin-top: 4rem;
+
+
+        &:hover {
+            text-decoration:underline ;
+        }
     }
 }

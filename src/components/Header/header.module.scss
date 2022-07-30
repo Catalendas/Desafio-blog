@@ -1,6 +1,18 @@
 .header {
     height: 105px;
-    padding:  0  0  0 330px;
+    padding:  0  0  0 21rem;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
 }
+
+@media (max-width: 1080px){
+    .header{
+        padding: 0 0 0 10rem;
+      }
+  }
+  
+  @media (max-width: 720px){
+    .header{
+        padding: 0 0 0 10rem;
+      }
+    }

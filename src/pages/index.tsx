@@ -3,7 +3,7 @@ import { ptBR } from 'date-fns/locale';
 import { GetStaticProps } from 'next';
 import  Head  from 'next/head';
 import Link from 'next/link'
-import { RichText } from 'prismic-dom';
+
 import { ReactElement, useState } from 'react';
 import {FiCalendar, FiUser} from 'react-icons/fi'
 
@@ -40,20 +40,57 @@ interface HomeProps {
 
 export default function Home({postsPagination}: HomeProps): ReactElement {
 
-  const formatedPost = postsPagination.results.map(post => ({
-      ...post,
-      first_publication_date: format(
-        new Date(post.first_publication_date),
-        'dd MMM yyyy',
-        {
-          locale: ptBR,
-        }
-      )
-   
-  }))
+  const formatedPost = postsPagination.results.map(post => {
+    return {
+        ...post,
+        first_publication_date: format(
+          new Date(post.first_publication_date),
+          'dd MMM yyyy',
+          {
+            locale: ptBR,
+          }
+        )
+    }
+  })
 
   
   const [posts, setPosts] = useState<Post[]>(formatedPost)
+  const [nextPage, setNextPage] = useState(postsPagination.next_page)
+  const [currentPage, setCurrentPage] = useState(1)
+
+  async function handleNextPage(): Promise<void>{
+    if(currentPage != 1 && nextPage == null) {
+      return
+    }
+
+    const postsResults = await fetch(`${nextPage}`).then(response => 
+      response.json()
+    )
+
+    setNextPage(postsResults.next_page)
+    setCurrentPage(postsResults.page)
+
+    const newPosts = postsResults.results.map(post => {
+      return {
+        uid: post.uid,
+        first_publication_date:format(
+          new Date(post.first_publication_date),
+          'dd MMM yyyy',
+          {
+            locale: ptBR,
+          }
+        ),
+        data: {
+          title: post.data.title,
+          subtitle: post.data.subtitle,
+          author:post.data.author
+        }
+      }
+    })
+
+    setPosts([...posts, ...newPosts])
+  }
+
   return(
     <>
      <Head>
@@ -61,8 +98,8 @@ export default function Home({postsPagination}: HomeProps): ReactElement {
      </Head>
 
       <main className={commonStyles.container}>
-        
-        
+     
+
         <div className={styles.postList}>
           
         {posts.map(post => (
@@ -78,7 +115,9 @@ export default function Home({postsPagination}: HomeProps): ReactElement {
             </Link>
         ))}
 
-          <button type='button'>Carregar mais posts</button>
+         {nextPage && (
+           <button type='button' onClick={handleNextPage}>Carregar mais posts</button>
+         )}
         </div>
 
       </main>
@@ -95,7 +134,8 @@ export default function Home({postsPagination}: HomeProps): ReactElement {
       direction: 'desc',
     }
   });
-  
+
+ 
 
   const posts = postsResponse.results.map(post => {
     return {
