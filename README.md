@@ -18,6 +18,11 @@ Ao clicar no post existe um redirecionamento para o conteudo
 ![image](https://user-images.githubusercontent.com/82763928/182145685-16a01807-7b19-496b-b6d0-83a0d89c61be.png)
 
 
+### Projeto em funcionamento
+
+![Blog](https://user-images.githubusercontent.com/82763928/182147779-1d3912be-bdcc-4679-8a1d-1b25e5e1f17a.gif)
+
+
 ## Tecnologias utilizada
 
 As tecnologias utilizadas para a realização desse projeto foram:
